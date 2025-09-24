@@ -352,6 +352,97 @@ bool palyginimasPagalPavarde(const Studentas& a, const Studentas& b)
     return a.pavarde < b.pavarde;
 }
 
+void StudentuPadalinimas(const vector<Studentas>& studentai, bool pagalVidurki = true)
+{
+    if (studentai.empty()) {
+        cout << "Nera studentu duomenu padalijimui!" << endl;
+        return;
+    }
+
+    vector<Studentas> vargsiukai;
+    vector<Studentas> saunuoliai;
+
+    for (const auto& studentas : studentai) {
+        double galutinisBalas;
+        if (pagalVidurki) {
+            galutinisBalas = studentas.galutinis_vidurkis;
+        } else {
+            galutinisBalas = studentas.galutine_mediana;
+        }
+
+        if (galutinisBalas < 5.0) {
+            vargsiukai.push_back(studentas);
+        } else {
+            saunuoliai.push_back(studentas);
+        }
+    }
+
+    sort(vargsiukai.begin(), vargsiukai.end(), palyginimasPagalVarda);
+    sort(saunuoliai.begin(), saunuoliai.end(), palyginimasPagalVarda);
+
+    string tipas;
+    if (pagalVidurki) {
+        tipas = "vidurkis";
+    } else {
+        tipas = "mediana";
+    }
+
+    // Vargsiuku failo isvedimas
+    string vargsiukuFailas = "vargsiuku_" + tipas + ".txt";
+    ofstream fout1(vargsiukuFailas);
+    if (fout1.is_open()) {
+        // Antraste
+        fout1 << left << setw(20) << "Vardas"
+              << setw(20) << "Pavarde"
+              << setw(25) << ("Galutinis (" + tipas + ")") << endl;
+        fout1 << string(65, '-') << endl;
+
+        for (const auto& studentas : vargsiukai) {
+            double balas;
+            if (pagalVidurki) {
+                balas = studentas.galutinis_vidurkis;
+            } else {
+                balas = studentas.galutine_mediana;
+            }
+            fout1 << left << setw(20) << studentas.vardas
+                  << setw(20) << studentas.pavarde
+                  << fixed << setprecision(2) << balas << endl;
+        }
+        fout1.close();
+        cout << "Vargsiuku failas '" << vargsiukuFailas << "' sukurtas su " << vargsiukai.size() << " irasais." << endl;
+    } else {
+        cout << "Klaida kuriant vargsiuku faila!" << endl;
+    }
+
+    // Saunuoliu failo isvedimas
+    string saunuoliuFailas = "saunuoliu_" + tipas + ".txt";
+    ofstream fout2(saunuoliuFailas);
+    if (fout2.is_open()) {
+        // Antraste
+        fout2 << left << setw(20) << "Vardas"
+              << setw(20) << "Pavarde"
+              << setw(25) << ("Galutinis (" + tipas + ")") << endl;
+        fout2 << string(65, '-') << endl;
+
+        // Duomenys
+        for (const auto& studentas : saunuoliai) {
+            double balas;
+            if (pagalVidurki) {
+                balas = studentas.galutinis_vidurkis;
+            } else {
+                balas = studentas.galutine_mediana;
+            }
+            fout2 << left << setw(20) << studentas.vardas
+                  << setw(20) << studentas.pavarde
+                  << fixed << setprecision(2) << balas << endl;
+        }
+        fout2.close();
+        cout << "Saunuoliu failas '" << saunuoliuFailas << "' sukurtas su " << saunuoliai.size() << " irasais." << endl;
+    } else {
+        cout << "Klaida kuriant saunuoliu faila!" << endl;
+    }
+}
+
 int rodytiMeniu()
 {
     cout << "\n PROGRAMOS MENIU" << endl;
@@ -427,6 +518,26 @@ void rodytiRezultatus(const vector<Studentas>& Grupe)
         }
         cout << endl;
     }
+
+    cout << "\nAr norite padalinti studentus i kategorijas ir issaugoti i failus? (1 - taip, 2 - ne): ";
+    int padalinti = ivestiSkaiciu("", 1, 2);
+
+    if (padalinti == 1) {
+        if (pasirinkimas == 1) {
+            StudentuPadalinimas(surusiuotiStudentai, true);  // pagal vidurki
+        } else {
+            if (pasirinkimas == 2) {
+                StudentuPadalinimas(surusiuotiStudentai, false); // pagal mediana
+            } else {
+                int tipas = ivestiSkaiciu("\nPagal kuri bala padalinti?\n1 - Pagal vidurki\n2 - Pagal mediana\nPasirinkimas: ", 1, 2);
+                if (tipas == 1) {
+                    StudentuPadalinimas(surusiuotiStudentai, true);
+                } else {
+                    StudentuPadalinimas(surusiuotiStudentai, false);
+                }
+            }
+        }
+    }
 }
 
 int main()
@@ -486,7 +597,6 @@ int main()
                 }
                 break;
             }
-        }
 
         cout << "\nAr norite testi programos darba? (1 - taip, 2 - ne): ";
         int testi = ivestiSkaiciu("", 1, 2);
@@ -500,4 +610,6 @@ int main()
         Grupe.clear();
     }
     return 0;
+    }
 }
+
