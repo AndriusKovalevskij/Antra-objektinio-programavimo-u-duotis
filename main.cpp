@@ -7,6 +7,9 @@
 #include <cstdlib>
 #include <ctime>
 #include <fstream>
+#include <random>
+
+std::mt19937 gen(std::random_device{}());
 
 using namespace std;
 using std::cout;
@@ -153,7 +156,8 @@ void NDpazymiuivestis(vector<int>& ndpazymiai)
 
 int AtsitiktinioPazymioGeneravimas()
 {
-    return rand() % 10 + 1;
+    static std::uniform_int_distribution<int> dist(1, 10);
+    return dist(gen);
 }
 
 void NDPazymiuGeneravimas(vector<int>& ndpazymiai)
@@ -263,6 +267,38 @@ bool skaitytiDuomenisIsFailo(const string& failoPavadinimas, vector<Studentas>& 
     return true;
 }
 
+void GeneruotiStudentuFaila(const string& failoPavadinimas, int studentuKiekis, int ndKiekis = 5)
+{
+    ofstream fout(failoPavadinimas);
+    if (!fout.is_open()) {
+        cout << "Klaida: nepavyko sukurti failo " << failoPavadinimas << endl;
+        return;
+    }
+
+    // Antraste
+    fout << left << setw(20) << "Vardas"
+         << setw(20) << "Pavarde";
+    for (int i = 1; i <= ndKiekis; i++) {
+        fout << setw(8) << ("ND" + to_string(i));
+    }
+    fout << setw(10) << "Egzaminas" << "\n";
+
+    // Irasai
+    for (int i = 1; i <= studentuKiekis; i++) {
+        fout << left << setw(20) << ("Vardas" + to_string(i))
+             << setw(20) << ("Pavarde" + to_string(i));
+
+        for (int j = 0; j < ndKiekis; j++) {
+            fout << setw(8) << AtsitiktinioPazymioGeneravimas();
+        }
+        fout << setw(10) << AtsitiktinioPazymioGeneravimas() << "\n";
+    }
+
+    fout.close();
+    cout << "Failas " << failoPavadinimas
+         << " sugeneruotas su " << studentuKiekis << " irasu." << endl;
+}
+
 // Studento duomenu ivestis (rankinis ivedimas)
 Studentas Stud_ivestis(int studentoNr, bool atsitiktinai = false)
 {
@@ -323,8 +359,9 @@ int rodytiMeniu()
     cout << "2 - Generuoti duomenis atsitiktinai" << endl;
     cout << "3 - Nuskaityti duomenis is failo" << endl;
     cout << "4 - Baigti programa" << endl;
+    cout << "5 - Sugeneruoti testinius failus (1k, 10k, 100k, 1M, 10M)" << endl;
 
-    return ivestiSkaiciu("Pasirinkite buda (1-4): ", 1, 4);
+    return ivestiSkaiciu("Pasirinkite buda (1-5): ", 1, 5);
 }
 
 void rodytiRezultatus(const vector<Studentas>& Grupe)
@@ -394,8 +431,6 @@ void rodytiRezultatus(const vector<Studentas>& Grupe)
 
 int main()
 {
-    srand(time(0)); //Atsitiktiniu skaiciu generatoriaus inicializacija
-
     cout << "Laba diena" << endl;
     vector<Studentas> Grupe;
 
@@ -441,6 +476,15 @@ int main()
                 // Baigti programa
                 cout << "Geros dienos!" << endl;
                 return 0;
+            }
+            case 5: {
+                // Sugeneruoti reikiamus failus
+                vector<int> dydziai = {1000, 10000, 100000, 1000000, 10000000};
+                for (int kiekis : dydziai) {
+                    string failoPav = "studentai_" + to_string(kiekis) + ".txt";
+                    GeneruotiStudentuFaila(failoPav, kiekis);
+                }
+                break;
             }
         }
 
