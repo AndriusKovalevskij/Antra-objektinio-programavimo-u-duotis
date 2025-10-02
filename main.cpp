@@ -42,26 +42,13 @@ int main()
 
                 if (skaitytiDuomenisIsFailo(failoPavadinimas, Grupe))
                 {
-                    // Rusiavimas
-                    int rusiuotiPagal = ivestiSkaiciu("\nKaip norite rusiuoti studentus?\n1 - Pagal varda\n2 - Pagal pavarde\nPasirinkimas: ", 1, 2);
-                    if (rusiuotiPagal == 1) {
-                        sort(Grupe.begin(), Grupe.end(), palyginimasPagalVarda);
-                    } else {
-                        sort(Grupe.begin(), Grupe.end(), palyginimasPagalPavarde);
-                    }
-
                     // Pasirenkamas tipas
-                    int pasirinkimas = ivestiSkaiciu("\nPasirinkite galutinio ivertinimo tipa:\n1 - Pagal vidurki\n2 - Pagal mediana\n3 - Rodyti abu\nJusu pasirinkimas: ", 1, 3);
+                    int pasirinkimas = ivestiSkaiciu("\nPagal ka padalinti studentus?\n1 - Pagal vidurki\n2 - Pagal mediana\nJusu pasirinkimas: ", 1, 2);
 
-                    string isvestiesFailas = "rezultatai.txt";
+                    bool pagalVidurki = (pasirinkimas == 1);
 
-                    if (pasirinkimas == 1) {
-                        isvestiRezultatusIFaila(isvestiesFailas, Grupe, true, false);
-                    } else if (pasirinkimas == 2) {
-                        isvestiRezultatusIFaila(isvestiesFailas, Grupe, false, false);
-                    } else {
-                        isvestiRezultatusIFaila(isvestiesFailas, Grupe, true, true);
-                    }
+                    // Automatiskai atlieka padalinima ir isveda i failus su laiko matavimu
+                    StudentuPadalinimas(Grupe, pagalVidurki);
                 } else {
                     cout << "Nepavyko nuskaityti duomenu is failo." << endl;
                 }
