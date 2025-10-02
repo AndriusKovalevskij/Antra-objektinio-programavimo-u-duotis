@@ -5,8 +5,10 @@
 #include <sstream>
 #include <iomanip>
 #include <algorithm>
+#include <chrono>
 
 using namespace std;
+using  namespace std::chrono;
 
 bool skaitytiDuomenisIsFailo(const string& failoPavadinimas, vector<Studentas>& studentai)
 {
@@ -89,6 +91,8 @@ bool skaitytiDuomenisIsFailo(const string& failoPavadinimas, vector<Studentas>& 
 
 void GeneruotiStudentuFaila(const string& failoPavadinimas, int studentuKiekis, int ndKiekis)
 {
+    auto start = high_resolution_clock::now();
+
     ofstream fout(failoPavadinimas);
     if (!fout.is_open()) {
         cout << "Klaida: nepavyko sukurti failo " << failoPavadinimas << endl;
@@ -113,8 +117,13 @@ void GeneruotiStudentuFaila(const string& failoPavadinimas, int studentuKiekis, 
     }
 
     fout.close();
+
+    auto end = high_resolution_clock::now();
+    duration<double> difference = end - start;
+
     cout << "Failas " << failoPavadinimas
          << " sugeneruotas su " << studentuKiekis << " irasu." << endl;
+    cout << "Failo kurimo laikas: " << fixed << setprecision(6) << difference.count() << " s" << endl;
 }
 
 void isvestiRezultatusIFaila(const string& failoPavadinimas, const vector<Studentas>& studentai, bool pagalVidurki, bool rodytiAbu)
