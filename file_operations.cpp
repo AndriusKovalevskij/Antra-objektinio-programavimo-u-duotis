@@ -209,8 +209,22 @@ void StudentuPadalinimas(const vector<Studentas>& studentai, bool pagalVidurki)
         }
     }
 
-    sort(vargsiukai.begin(), vargsiukai.end(), palyginimasPagalVarda);
-    sort(saunuoliai.begin(), saunuoliai.end(), palyginimasPagalVarda);
+    // Rusiuojame pagal pasirinkta kriteriju (vidurki arba mediana) didejimo tvarka
+    if (pagalVidurki) {
+        sort(vargsiukai.begin(), vargsiukai.end(), [](const Studentas& a, const Studentas& b) {
+            return a.galutinis_vidurkis < b.galutinis_vidurkis;
+        });
+        sort(saunuoliai.begin(), saunuoliai.end(), [](const Studentas& a, const Studentas& b) {
+            return a.galutinis_vidurkis < b.galutinis_vidurkis;
+        });
+    } else {
+        sort(vargsiukai.begin(), vargsiukai.end(), [](const Studentas& a, const Studentas& b) {
+            return a.galutine_mediana < b.galutine_mediana;
+        });
+        sort(saunuoliai.begin(), saunuoliai.end(), [](const Studentas& a, const Studentas& b) {
+            return a.galutine_mediana < b.galutine_mediana;
+        });
+    }
 
     auto end_rusiavimas = high_resolution_clock::now();
     duration<double> diff_rusiavimas = end_rusiavimas - start_rusiavimas;
