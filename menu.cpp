@@ -19,7 +19,7 @@ int rodytiMeniu()
     return ivestiSkaiciu("Pasirinkite buda (1-5): ", 1, 5);
 }
 
-void rodytiRezultatus(const vector<Studentas>& Grupe)
+void rodytiRezultatus(const list<Studentas>& Grupe)
 {
     if (Grupe.empty()) {
         cout << "Nera ivestos informacijos apie studentus!" << endl;
@@ -28,12 +28,12 @@ void rodytiRezultatus(const vector<Studentas>& Grupe)
 
     int rusiuotiPagal = ivestiSkaiciu("\nKaip norite rusiuoti studentus?\n1 - Pagal varda\n2 - Pagal pavarde\nPasirinkimas: ", 1, 2);
 
-    vector<Studentas> surusiuotiStudentai = Grupe;
+    list<Studentas> surusiuotiStudentai = Grupe;
     if (rusiuotiPagal == 1)
     {
-        sort(surusiuotiStudentai.begin(), surusiuotiStudentai.end(), palyginimasPagalVarda);
+        surusiuotiStudentai.sort(palyginimasPagalVarda);
     } else {
-        sort(surusiuotiStudentai.begin(), surusiuotiStudentai.end(), palyginimasPagalPavarde);
+        surusiuotiStudentai.sort(palyginimasPagalPavarde);
     }
 
     int pasirinkimas;

@@ -3,8 +3,9 @@
 
 #include "student_struct.h"
 #include <vector>
+#include <list>
 
 int rodytiMeniu();
-void rodytiRezultatus(const std::vector<Studentas>& Grupe);
+void rodytiRezultatus(const std::list<Studentas>& Grupe);
 
 #endif // MENU_H_INCLUDED

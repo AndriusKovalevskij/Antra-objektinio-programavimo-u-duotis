@@ -10,7 +10,7 @@
 using namespace std;
 using namespace std::chrono;
 
-bool skaitytiDuomenisIsFailo(const string& failoPavadinimas, vector<Studentas>& studentai)
+bool skaitytiDuomenisIsFailo(const string& failoPavadinimas, list<Studentas>& studentai)
 {
     auto start = high_resolution_clock::now();
 
@@ -133,7 +133,7 @@ void GeneruotiStudentuFaila(const string& failoPavadinimas, int studentuKiekis, 
     cout << "Failo kurimo laikas: " << fixed << setprecision(6) << diff.count() << " s" << endl;
 }
 
-void isvestiRezultatusIFaila(const string& failoPavadinimas, const vector<Studentas>& studentai, bool pagalVidurki, bool rodytiAbu)
+void isvestiRezultatusIFaila(const string& failoPavadinimas, const list<Studentas>& studentai, bool pagalVidurki, bool rodytiAbu)
 {
     ofstream fout(failoPavadinimas);
     if (!fout.is_open()) {
@@ -181,7 +181,7 @@ void isvestiRezultatusIFaila(const string& failoPavadinimas, const vector<Studen
     cout << "Rezultatai issaugoti i faila: " << failoPavadinimas << endl;
 }
 
-void StudentuPadalinimas(const vector<Studentas>& studentai, bool pagalVidurki)
+void StudentuPadalinimas(const list<Studentas>& studentai, bool pagalVidurki)
 {
     if (studentai.empty()) {
         cout << "Nera studentu duomenu padalijimui!" << endl;
@@ -191,8 +191,8 @@ void StudentuPadalinimas(const vector<Studentas>& studentai, bool pagalVidurki)
     // Matuojame rusiavimo laika
     auto start_rusiavimas = high_resolution_clock::now();
 
-    vector<Studentas> vargsiukai;
-    vector<Studentas> saunuoliai;
+    list<Studentas> vargsiukai;
+    list<Studentas> saunuoliai;
 
     for (const auto& studentas : studentai) {
         double galutinisBalas;
@@ -209,19 +209,18 @@ void StudentuPadalinimas(const vector<Studentas>& studentai, bool pagalVidurki)
         }
     }
 
-    // Rusiuojame pagal pasirinkta kriteriju (vidurki arba mediana) didejimo tvarka
     if (pagalVidurki) {
-        sort(vargsiukai.begin(), vargsiukai.end(), [](const Studentas& a, const Studentas& b) {
+        vargsiukai.sort([](const Studentas& a, const Studentas& b) {
             return a.galutinis_vidurkis < b.galutinis_vidurkis;
         });
-        sort(saunuoliai.begin(), saunuoliai.end(), [](const Studentas& a, const Studentas& b) {
+        saunuoliai.sort([](const Studentas& a, const Studentas& b) {
             return a.galutinis_vidurkis < b.galutinis_vidurkis;
         });
     } else {
-        sort(vargsiukai.begin(), vargsiukai.end(), [](const Studentas& a, const Studentas& b) {
+        vargsiukai.sort([](const Studentas& a, const Studentas& b) {
             return a.galutine_mediana < b.galutine_mediana;
         });
-        sort(saunuoliai.begin(), saunuoliai.end(), [](const Studentas& a, const Studentas& b) {
+        saunuoliai.sort([](const Studentas& a, const Studentas& b) {
             return a.galutine_mediana < b.galutine_mediana;
         });
     }

@@ -5,13 +5,14 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <list>
 
 using namespace std;
 
 int main()
 {
     cout << "Laba diena" << endl;
-    vector<Studentas> Grupe;
+    list<Studentas> Grupe;
 
     while (true)
     {
