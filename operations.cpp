@@ -166,6 +166,10 @@ Studentas Stud_ivestis(int studentoNr, bool atsitiktinai)
         pirmas.galutinis_vidurkis = pirmas.egzrezultatas * 0.6;
         pirmas.galutine_mediana = pirmas.egzrezultatas * 0.6;
     }
+
+    // Atminties adreso isvedimas (reikalinga v0.3)
+    cout << "Studento objekto adresas atmintyje: " << &pirmas << endl;
+
     return pirmas;
 }
 

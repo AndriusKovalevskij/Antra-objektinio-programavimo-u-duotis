@@ -1,6 +1,5 @@
 #ifndef STUDENT_STRUCT_H_INCLUDED
 #define STUDENT_STRUCT_H_INCLUDED
-
 #include <string>
 #include <vector>
 
