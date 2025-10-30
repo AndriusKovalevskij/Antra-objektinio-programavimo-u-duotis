@@ -16,10 +16,11 @@ int rodytiMeniu()
     cout << "2 - Generuoti duomenis atsitiktinai (VECTOR)" << endl;
     cout << "3 - Nuskaityti duomenis is failo (VECTOR)" << endl;
     cout << "4 - Nuskaityti duomenis is failo (LIST)" << endl;
-    cout << "5 - Sugeneruoti testinius failus" << endl;
-    cout << "6 - Baigti programa" << endl;
+    cout << "5 - Ivesti duomenis rankiniu budu (LIST)" << endl;
+    cout << "6 - Sugeneruoti testinius failus" << endl;
+    cout << "7 - Baigti programa" << endl;
     cout << "==================================" << endl;
-    return ivestiSkaiciu("Pasirinkite buda (1-6): ", 1, 6);
+    return ivestiSkaiciu("Pasirinkite buda (1-7): ", 1, 7);
 }
 
 void rodytiRezultatus_Vector(const vector<Studentas>& Grupe)
@@ -149,13 +150,14 @@ void rodytiRezultatus_List(const list<Studentas>& Grupe)
         cout << "|" << left << setw(20) << "Galutinis (Vid.)"
              << "|" << left << setw(20) << "Galutinis (Med.)";
     }
+    cout << "|" << left << setw(20) << "Objektas atmintyje";
     cout << endl;
 
     if (pasirinkimas == 3)
     {
-        cout << string(80, '-') << endl;
+        cout << string(105, '-') << endl;
     } else {
-        cout << string(60, '-') << endl;
+        cout << string(80, '-') << endl;
     }
 
     for (const auto& studentas : surusiuotiStudentai)
@@ -172,6 +174,7 @@ void rodytiRezultatus_List(const list<Studentas>& Grupe)
             cout << "|" << fixed << setprecision(2) << setw(20) << left << studentas.galutinis_vidurkis
                  << "|" << fixed << setprecision(2) << setw(20) << left << studentas.galutine_mediana;
         }
+        cout << "|" << setw(20) << left << &studentas;
         cout << endl;
     }
 

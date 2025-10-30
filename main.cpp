@@ -80,6 +80,20 @@ int main()
             }
 
             case 5: {
+                // Rankinis ivedimas su LIST
+                cout << "\n=== Naudojamas LIST konteineris ===" << endl;
+                int m = ivestiSkaiciu("Kiek studentu grupeje?: ", 1, 100000);
+                for (int z = 0; z < m; z++) {
+                    Studentas naujasStudentas = Stud_ivestis(z + 1, false);
+                    GrupeList.push_back(naujasStudentas);
+
+                    cout << "Objekto adresas atmintyje: " << &GrupeList.back() << endl;
+                }
+                rodytiRezultatus_List(GrupeList);
+                break;
+            }
+
+            case 6: {
                 // Testavimo failu generavimas
                 cout << "\n=== TESTAVIMO FAILU GENERAVIMAS ===" << endl;
                 vector<int> dydziai = {1000, 10000, 100000, 1000000, 10000000};
@@ -93,7 +107,7 @@ int main()
                 break;
             }
 
-            case 6: {
+            case 7: {
                 cout << "\n======================================" << endl;
                 cout << "  Dekojame, kad naudojotes programa!" << endl;
                 cout << "======================================" << endl;
