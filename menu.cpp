@@ -61,13 +61,14 @@ void rodytiRezultatus_Vector(const vector<Studentas>& Grupe)
         cout << "|" << left << setw(20) << "Galutinis (Vid.)"
              << "|" << left << setw(20) << "Galutinis (Med.)";
     }
+    cout << "|" << left << setw(20) << "Objektas atmintyje";
     cout << endl;
 
     if (pasirinkimas == 3)
     {
-        cout << string(80, '-') << endl;
+        cout << string(105, '-') << endl;
     } else {
-        cout << string(60, '-') << endl;
+        cout << string(80, '-') << endl;
     }
 
     for (const auto& studentas : surusiuotiStudentai)
@@ -84,6 +85,7 @@ void rodytiRezultatus_Vector(const vector<Studentas>& Grupe)
             cout << "|" << fixed << setprecision(2) << setw(20) << left << studentas.galutinis_vidurkis
                  << "|" << fixed << setprecision(2) << setw(20) << left << studentas.galutine_mediana;
         }
+        cout << "|" << setw(20) << left << &studentas;
         cout << endl;
     }
 
