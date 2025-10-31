@@ -33,3 +33,9 @@ Bendras palyginimas:
 | 1000000     | 11.268161    | 11.589494    | +2.9%     | VECTOR       |
 | 10000000    | 111.161590   | 128.093443   | +15.2%    | VECTOR       |
 
+
+Operacijų analizė:
+
+Skaitymas: Panašus abiem atvejais.
+Rūšiavimas: List žymiai greičiau mažiem duomenims, vector - dideliems.
+Įrašymas: Vector greičiau įrašo.
