@@ -16,4 +16,7 @@ void StudentuPadalinimas_Vector_S1(const std::vector<Studentas>& studentai, bool
 // Strategija 2: Vienas konteineris + trynimas
 void StudentuPadalinimas_Vector_S2(std::vector<Studentas>& studentai, bool pagalVidurki = true);
 
+// Strategija 3: STL stable_partition
+void StudentuPadalinimas_Vector_S3(std::vector<Studentas>& studentai, bool pagalVidurki = true);
+
 #endif // FILE_OPERATIONS_H_INCLUDED

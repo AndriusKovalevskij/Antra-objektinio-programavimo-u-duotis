@@ -349,8 +349,114 @@ void StudentuPadalinimas_Vector_S2(vector<Studentas>& studentai, bool pagalVidur
     cout << "Isvedimo laikas:             " << fixed << setprecision(6) << diff_output.count() << " s" << endl;
     cout << "BENDRAS laikas:              " << fixed << setprecision(6) << diff_total.count() << " s" << endl;
     cout << "------------------------------------" << endl;
-    cout << "   PASTABA: Dideliems duomenims (>10K) - LETA!" << endl;
-    cout << "   Priezastis: erase() vektoriuje yra O(n) operacija" << endl;
     cout << "Vargsiuku: " << vargsiukai.size() << " | Saunuoliu: " << studentai.size() << endl;
+    cout << "------------------------------------\n" << endl;
+}
+
+// STRATEGIJA 3: STL STABLE_PARTITION
+
+void StudentuPadalinimas_Vector_S3(vector<Studentas>& studentai, bool pagalVidurki)
+{
+    if (studentai.empty()) {
+        cout << "Nera studentu duomenu padalijimui!" << endl;
+        return;
+    }
+
+    cout << "\n=== VECTOR - STRATEGIJA 3 (STL partition) ===" << endl;
+    auto start_total = high_resolution_clock::now();
+
+    auto start_partition = high_resolution_clock::now();
+
+    // std::stable_partition
+    auto partition_point = std::stable_partition(studentai.begin(), studentai.end(),
+        [pagalVidurki](const Studentas& s) {
+            double balas = pagalVidurki ? s.galutinis_vidurkis : s.galutine_mediana;
+            return balas < 5.0;
+        });
+
+    auto end_partition = high_resolution_clock::now();
+    duration<double> diff_partition = end_partition - start_partition;
+
+    // Sukuriame du vektorius is suskaidyto vektoriaus
+    auto start_copy = high_resolution_clock::now();
+
+    vector<Studentas> vargsiukai(studentai.begin(), partition_point);
+    vector<Studentas> saunuoliai(partition_point, studentai.end());
+
+    auto end_copy = high_resolution_clock::now();
+    duration<double> diff_copy = end_copy - start_copy;
+
+    // Rusiavimas
+    auto start_sort = high_resolution_clock::now();
+
+    if (pagalVidurki) {
+        sort(vargsiukai.begin(), vargsiukai.end(), [](const Studentas& a, const Studentas& b) {
+            return a.galutinis_vidurkis < b.galutinis_vidurkis;
+        });
+        sort(saunuoliai.begin(), saunuoliai.end(), [](const Studentas& a, const Studentas& b) {
+            return a.galutinis_vidurkis < b.galutinis_vidurkis;
+        });
+    } else {
+        sort(vargsiukai.begin(), vargsiukai.end(), [](const Studentas& a, const Studentas& b) {
+            return a.galutine_mediana < b.galutine_mediana;
+        });
+        sort(saunuoliai.begin(), saunuoliai.end(), [](const Studentas& a, const Studentas& b) {
+            return a.galutine_mediana < b.galutine_mediana;
+        });
+    }
+
+    auto end_sort = high_resolution_clock::now();
+    duration<double> diff_sort = end_sort - start_sort;
+
+    string tipas = pagalVidurki ? "vidurkis" : "mediana";
+
+    // Irasymas i failus
+    auto start_output = high_resolution_clock::now();
+
+    string vargsiukuFailas = "vargsiuku_" + tipas + "_vector_s3.txt";
+    ofstream fout1(vargsiukuFailas);
+    if (fout1.is_open()) {
+        fout1 << left << setw(20) << "Vardas" << setw(20) << "Pavarde"
+              << setw(25) << ("Galutinis (" + tipas + ")") << endl;
+        fout1 << string(65, '-') << endl;
+        for (const auto& s : vargsiukai) {
+            double balas = pagalVidurki ? s.galutinis_vidurkis : s.galutine_mediana;
+            fout1 << left << setw(20) << s.vardas << setw(20) << s.pavarde
+                  << fixed << setprecision(2) << balas << endl;
+        }
+        fout1.close();
+    }
+
+    string saunuoliuFailas = "saunuoliu_" + tipas + "_vector_s3.txt";
+    ofstream fout2(saunuoliuFailas);
+    if (fout2.is_open()) {
+        fout2 << left << setw(20) << "Vardas" << setw(20) << "Pavarde"
+              << setw(25) << ("Galutinis (" + tipas + ")") << endl;
+        fout2 << string(65, '-') << endl;
+        for (const auto& s : saunuoliai) {
+            double balas = pagalVidurki ? s.galutinis_vidurkis : s.galutine_mediana;
+            fout2 << left << setw(20) << s.vardas << setw(20) << s.pavarde
+                  << fixed << setprecision(2) << balas << endl;
+        }
+        fout2.close();
+    }
+
+    auto end_output = high_resolution_clock::now();
+    duration<double> diff_output = end_output - start_output;
+
+    auto end_total = high_resolution_clock::now();
+    duration<double> diff_total = end_total - start_total;
+
+    cout << "\n--- LAIKO MATAVIMAS (STRATEGIJA 3) ---" << endl;
+    cout << "Partition laikas:            " << fixed << setprecision(6) << diff_partition.count() << " s" << endl;
+    cout << "Kopijavimo laikas:           " << fixed << setprecision(6) << diff_copy.count() << " s" << endl;
+    cout << "Rusiavimo laikas:            " << fixed << setprecision(6) << diff_sort.count() << " s" << endl;
+    cout << "Isvedimo laikas:             " << fixed << setprecision(6) << diff_output.count() << " s" << endl;
+    cout << "BENDRAS laikas:              " << fixed << setprecision(6) << diff_total.count() << " s" << endl;
+    cout << "------------------------------------" << endl;
+    cout << "   std::stable_partition - greiciausias sprendimas" << endl;
+    cout << "   Sudetingumas: O(n log n)" << endl;
+    cout << "   Rekomenduojama VISIEMS duomenu kiekiams" << endl;
+    cout << "Vargsiuku: " << vargsiukai.size() << " | Saunuoliu: " << saunuoliai.size() << endl;
     cout << "------------------------------------\n" << endl;
 }
