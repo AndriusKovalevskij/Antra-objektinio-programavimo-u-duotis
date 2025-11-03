@@ -1,0 +1,36 @@
+cmake_minimum_required(VERSION 3.10)
+
+# Projekto pavadinimas
+project(StudentuSistema VERSION 1.0 LANGUAGES CXX)
+
+# C++ standartas
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Kompiliatoriaus flags'ai visiems kompiliatoriams
+if(MSVC)
+    # Visual Studio kompiliatoriui
+    add_compile_options(/W4)
+else()
+    # GCC ir Clang kompiliatoriams (Linux, macOS, MinGW)
+    add_compile_options(-Wall -Wextra -pedantic)
+endif()
+
+# Vykdomasis failas
+add_executable(studentai
+    main.cpp
+    operations.cpp
+    operations.h
+    file_operations.cpp
+    file_operations.h
+    student_struct.h
+)
+
+# Informacija apie kompiliacija
+message(STATUS "===========================================")
+message(STATUS "Projektas: ${PROJECT_NAME}")
+message(STATUS "Versija: ${PROJECT_VERSION}")
+message(STATUS "C++ standartas: C++${CMAKE_CXX_STANDARD}")
+message(STATUS "Kompiliatorius: ${CMAKE_CXX_COMPILER_ID}")
+message(STATUS "Sistema: ${CMAKE_SYSTEM_NAME}")
+message(STATUS "===========================================")
