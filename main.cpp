@@ -34,10 +34,11 @@ int main()
         cout << "8 - List Strategija 3" << endl;
         cout << "9 - Palyginti visas List strategijas" << endl;
         cout << "----------------------------------" << endl;
-        cout << "10 - Baigti programa" << endl;
-        cout << "==================================" << endl;
+        cout << "10 - Palyginti Vector vs List" << endl;
+        cout << "11 - Baigti programa" << endl;
+        cout << "========================================" << endl;
 
-        int pasirinkimas = ivestiSkaiciu("Pasirinkite (1-10): ", 1, 10);
+        int pasirinkimas = ivestiSkaiciu("Pasirinkite (1-11): ", 1, 11);
 
         string failoPavadinimas;
         bool pagalVidurki;
@@ -192,6 +193,55 @@ int main()
             }
 
             case 10: {
+                cout << "\nIveskite failo pavadinima: ";
+                cin >> failoPavadinimas;
+                pasirinkimas_balas = ivestiSkaiciu("\nPagal ka?\n1 - Vidurkis\n2 - Mediana\n: ", 1, 2);
+                pagalVidurki = (pasirinkimas_balas == 1);
+
+                cout << "\n############################################" << endl;
+                cout << "  PILNAS TYRIMAS: VECTOR vs LIST" << endl;
+                cout << "############################################\n" << endl;
+
+                cout << "\n=== VECTOR KONTEINERIS ===" << endl;
+
+                studentaiVector.clear();
+                if (skaitytiDuomenisIsFailo_Vector(failoPavadinimas, studentaiVector)) {
+                    StudentuPadalinimas_Vector_S1(studentaiVector, pagalVidurki);
+                }
+
+                studentaiVector.clear();
+                if (skaitytiDuomenisIsFailo_Vector(failoPavadinimas, studentaiVector)) {
+                    StudentuPadalinimas_Vector_S2(studentaiVector, pagalVidurki);
+                }
+
+                studentaiVector.clear();
+                if (skaitytiDuomenisIsFailo_Vector(failoPavadinimas, studentaiVector)) {
+                    StudentuPadalinimas_Vector_S3(studentaiVector, pagalVidurki);
+                }
+
+                cout << "\n=== LIST KONTEINERIS ===" << endl;
+
+                studentaiList.clear();
+                if (skaitytiDuomenisIsFailo_List(failoPavadinimas, studentaiList)) {
+                    StudentuPadalinimas_List_S1(studentaiList, pagalVidurki);
+                }
+
+                studentaiList.clear();
+                if (skaitytiDuomenisIsFailo_List(failoPavadinimas, studentaiList)) {
+                    StudentuPadalinimas_List_S2(studentaiList, pagalVidurki);
+                }
+
+                studentaiList.clear();
+                if (skaitytiDuomenisIsFailo_List(failoPavadinimas, studentaiList)) {
+                    StudentuPadalinimas_List_S3(studentaiList, pagalVidurki);
+                }
+
+                cout << "\n############################################" << endl;
+                cout << "  TYRIMAS BAIGTAS!" << endl;
+                break;
+            }
+
+            case 11: {
                 cout << "\n======================================" << endl;
                 cout << "  Dekojame, kad naudojotes programa!" << endl;
                 cout << "======================================" << endl;
