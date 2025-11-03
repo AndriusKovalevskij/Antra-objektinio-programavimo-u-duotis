@@ -6,6 +6,7 @@
 #include <iomanip>
 #include <algorithm>
 #include <chrono>
+#include <list>
 
 using namespace std;
 using namespace std::chrono;
@@ -457,6 +458,179 @@ void StudentuPadalinimas_Vector_S3(vector<Studentas>& studentai, bool pagalVidur
     cout << "   std::stable_partition - greiciausias sprendimas" << endl;
     cout << "   Sudetingumas: O(n log n)" << endl;
     cout << "   Rekomenduojama VISIEMS duomenu kiekiams" << endl;
+    cout << "Vargsiuku: " << vargsiukai.size() << " | Saunuoliu: " << saunuoliai.size() << endl;
+    cout << "------------------------------------\n" << endl;
+}
+
+// LIST KONTEINERIO FUNKCIJOS
+
+bool skaitytiDuomenisIsFailo_List(const string& failoPavadinimas, list<Studentas>& studentai)
+{
+    auto start = high_resolution_clock::now();
+
+    ifstream failas(failoPavadinimas);
+    if (!failas.is_open()) {
+        cout << "Klaida: nepavyko atidaryti failo " << failoPavadinimas << endl;
+        return false;
+    }
+
+    string eilute;
+    if (!getline(failas, eilute)) {
+        cout << "Klaida: failas tuscias arba pazeistas" << endl;
+        failas.close();
+        return false;
+    }
+
+    int studentuSkaicius = 0;
+    while (getline(failas, eilute)) {
+        if (eilute.empty()) continue;
+
+        stringstream ss(eilute);
+        Studentas studentas;
+
+        if (!(ss >> studentas.vardas >> studentas.pavarde)) {
+            continue;
+        }
+
+        int pazymys;
+        vector<int> visi_pazymiai;
+
+        while (ss >> pazymys) {
+            if (pazymys >= 1 && pazymys <= 10) {
+                visi_pazymiai.push_back(pazymys);
+            }
+        }
+
+        if (visi_pazymiai.empty()) continue;
+
+        studentas.egzrezultatas = visi_pazymiai.back();
+        visi_pazymiai.pop_back();
+        studentas.ndpazymiai = visi_pazymiai;
+
+        if (studentas.ndpazymiai.size() > 0) {
+            int sum = 0;
+            for (int nd : studentas.ndpazymiai) {
+                sum += nd;
+            }
+            studentas.galutinis_vidurkis = double(sum) / studentas.ndpazymiai.size() * 0.4 + studentas.egzrezultatas * 0.6;
+            studentas.galutine_mediana = MedianosSkaiciavimas(studentas.ndpazymiai) * 0.4 + studentas.egzrezultatas * 0.6;
+        } else {
+            studentas.galutinis_vidurkis = studentas.egzrezultatas * 0.6;
+            studentas.galutine_mediana = studentas.egzrezultatas * 0.6;
+        }
+
+        studentai.push_back(studentas);
+        studentuSkaicius++;
+    }
+
+    failas.close();
+
+    auto end = high_resolution_clock::now();
+    duration<double> diff = end - start;
+
+    cout << "Sekmingai nuskaityta " << studentuSkaicius << " studentu duomenys (LIST). " << endl;
+    cout << "Duomenu nuskaitymo laikas: " << fixed << setprecision(6) << diff.count() << " s" << endl;
+    return true;
+}
+
+// ============================================
+// LIST - STRATEGIJA 1: Kopijavimas
+// ============================================
+
+void StudentuPadalinimas_List_S1(const list<Studentas>& studentai, bool pagalVidurki)
+{
+    if (studentai.empty()) {
+        cout << "Nera studentu duomenu padalijimui!" << endl;
+        return;
+    }
+
+    cout << "\n=== LIST - STRATEGIJA 1 (Kopijavimas) ===" << endl;
+    auto start_total = high_resolution_clock::now();
+
+    list<Studentas> vargsiukai;
+    list<Studentas> saunuoliai;
+
+    auto start_split = high_resolution_clock::now();
+
+    for (const auto& studentas : studentai) {
+        double galutinisBalas = pagalVidurki ? studentas.galutinis_vidurkis : studentas.galutine_mediana;
+
+        if (galutinisBalas < 5.0) {
+            vargsiukai.push_back(studentas);
+        } else {
+            saunuoliai.push_back(studentas);
+        }
+    }
+
+    auto end_split = high_resolution_clock::now();
+    duration<double> diff_split = end_split - start_split;
+
+    // Rusiavimas
+    auto start_sort = high_resolution_clock::now();
+
+    if (pagalVidurki) {
+        vargsiukai.sort([](const Studentas& a, const Studentas& b) {
+            return a.galutinis_vidurkis < b.galutinis_vidurkis;
+        });
+        saunuoliai.sort([](const Studentas& a, const Studentas& b) {
+            return a.galutinis_vidurkis < b.galutinis_vidurkis;
+        });
+    } else {
+        vargsiukai.sort([](const Studentas& a, const Studentas& b) {
+            return a.galutine_mediana < b.galutine_mediana;
+        });
+        saunuoliai.sort([](const Studentas& a, const Studentas& b) {
+            return a.galutine_mediana < b.galutine_mediana;
+        });
+    }
+
+    auto end_sort = high_resolution_clock::now();
+    duration<double> diff_sort = end_sort - start_sort;
+
+    string tipas = pagalVidurki ? "vidurkis" : "mediana";
+
+    // Isvedimas
+    auto start_output = high_resolution_clock::now();
+
+    string vargsiukuFailas = "vargsiuku_" + tipas + "_list_s1.txt";
+    ofstream fout1(vargsiukuFailas);
+    if (fout1.is_open()) {
+        fout1 << left << setw(20) << "Vardas" << setw(20) << "Pavarde"
+              << setw(25) << ("Galutinis (" + tipas + ")") << endl;
+        fout1 << string(65, '-') << endl;
+        for (const auto& s : vargsiukai) {
+            double balas = pagalVidurki ? s.galutinis_vidurkis : s.galutine_mediana;
+            fout1 << left << setw(20) << s.vardas << setw(20) << s.pavarde
+                  << fixed << setprecision(2) << balas << endl;
+        }
+        fout1.close();
+    }
+
+    string saunuoliuFailas = "saunuoliu_" + tipas + "_list_s1.txt";
+    ofstream fout2(saunuoliuFailas);
+    if (fout2.is_open()) {
+        fout2 << left << setw(20) << "Vardas" << setw(20) << "Pavarde"
+              << setw(25) << ("Galutinis (" + tipas + ")") << endl;
+        fout2 << string(65, '-') << endl;
+        for (const auto& s : saunuoliai) {
+            double balas = pagalVidurki ? s.galutinis_vidurkis : s.galutine_mediana;
+            fout2 << left << setw(20) << s.vardas << setw(20) << s.pavarde
+                  << fixed << setprecision(2) << balas << endl;
+        }
+        fout2.close();
+    }
+
+    auto end_output = high_resolution_clock::now();
+    duration<double> diff_output = end_output - start_output;
+
+    auto end_total = high_resolution_clock::now();
+    duration<double> diff_total = end_total - start_total;
+
+    cout << "\n--- LAIKO MATAVIMAS (STRATEGIJA 1) ---" << endl;
+    cout << "Padalijimo laikas:           " << fixed << setprecision(6) << diff_split.count() << " s" << endl;
+    cout << "Rusiavimo laikas:            " << fixed << setprecision(6) << diff_sort.count() << " s" << endl;
+    cout << "Isvedimo laikas:             " << fixed << setprecision(6) << diff_output.count() << " s" << endl;
+    cout << "BENDRAS laikas:              " << fixed << setprecision(6) << diff_total.count() << " s" << endl;
     cout << "Vargsiuku: " << vargsiukai.size() << " | Saunuoliu: " << saunuoliai.size() << endl;
     cout << "------------------------------------\n" << endl;
 }

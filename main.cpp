@@ -10,125 +10,129 @@ int main()
 {
     cout << "======================================" << endl;
     cout << "  Studentu pazymiu sistema v1.0" << endl;
-    cout << "  Visos Vector strategijos" << endl;
+    cout << "  Vector ir List strategiju tyrimas" << endl;
     cout << "======================================" << endl;
 
-    vector<Studentas> studentai;
+    vector<Studentas> studentaiVector;
+    list<Studentas> studentaiList;
 
     while (true)
     {
-        cout << "\n==================================" << endl;
-        cout << "    MENIU" << endl;
-        cout << "==================================" << endl;
+        cout << "\n========================================" << endl;
+        cout << "    PAGRINDINIS MENIU" << endl;
+        cout << "========================================" << endl;
+        cout << "GENERAVIMAS:" << endl;
         cout << "1 - Sugeneruoti testini faila" << endl;
-        cout << "2 - Testuoti Vector Strategija 1" << endl;
-        cout << "3 - Testuoti Vector Strategija 2" << endl;
-        cout << "4 - Testuoti Vector Strategija 3 (OPTIMALI)" << endl;
+        cout << "\nVECTOR STRATEGIJOS:" << endl;
+        cout << "2 - Vector Strategija 1" << endl;
+        cout << "3 - Vector Strategija 2 (leta)" << endl;
+        cout << "4 - Vector Strategija 3 (optimali)" << endl;
         cout << "5 - Palyginti visas Vector strategijas" << endl;
-        cout << "6 - Baigti programa" << endl;
+        cout << "\nLIST STRATEGIJOS:" << endl;
+        cout << "6 - List Strategija 1" << endl;
+        cout << "7 - Baigti programa" << endl;
         cout << "==================================" << endl;
 
-        int pasirinkimas = ivestiSkaiciu("Pasirinkite (1-6): ", 1, 6);
+        int pasirinkimas = ivestiSkaiciu("Pasirinkite (1-7): ", 1, 6);
+
+        string failoPavadinimas;
+        bool pagalVidurki;
+        int pasirinkimas_balas;
 
         switch (pasirinkimas)
         {
             case 1: {
                 // Generuojame testini faila
-                int kiekis = ivestiSkaiciu("Kiek studentu generuoti? (pvz: 1000, 10000): ", 100, 10000000);
+                int kiekis = ivestiSkaiciu("Kiek studentu? (pvz: 1000, 10000, 100000): ", 100, 10000000);
                 string failoPav = "studentai_" + to_string(kiekis) + ".txt";
                 GeneruotiStudentuFaila(failoPav, kiekis);
                 break;
             }
 
+            // ============ VECTOR STRATEGIJOS ============
             case 2: {
-                // Testuojame Vector S1
                 cout << "\nIveskite failo pavadinima: ";
-                string failoPavadinimas;
                 cin >> failoPavadinimas;
+                pasirinkimas_balas = ivestiSkaiciu("\nPagal ka?\n1 - Vidurkis\n2 - Mediana\n: ", 1, 2);
+                pagalVidurki = (pasirinkimas_balas == 1);
 
-                studentai.clear();
-                if (skaitytiDuomenisIsFailo_Vector(failoPavadinimas, studentai))
-                {
-                    int pasirinkimas_balas = ivestiSkaiciu("\nPagal ka?\n1 - Vidurkis\n2 - Mediana\n: ", 1, 2);
-                    bool pagalVidurki = (pasirinkimas_balas == 1);
-                    StudentuPadalinimas_Vector_S1(studentai, pagalVidurki);
+                studentaiVector.clear();
+                if (skaitytiDuomenisIsFailo_Vector(failoPavadinimas, studentaiVector)) {
+                    StudentuPadalinimas_Vector_S1(studentaiVector, pagalVidurki);
                 }
                 break;
             }
 
             case 3: {
-                // Testuojame Vector S2
                 cout << "\nIveskite failo pavadinima: ";
-                string failoPavadinimas;
                 cin >> failoPavadinimas;
+                pasirinkimas_balas = ivestiSkaiciu("\nPagal ka?\n1 - Vidurkis\n2 - Mediana\n: ", 1, 2);
+                pagalVidurki = (pasirinkimas_balas == 1);
 
-                studentai.clear();
-                if (skaitytiDuomenisIsFailo_Vector(failoPavadinimas, studentai))
-                {
-                    int pasirinkimas_balas = ivestiSkaiciu("\nPagal ka?\n1 - Vidurkis\n2 - Mediana\n: ", 1, 2);
-                    bool pagalVidurki = (pasirinkimas_balas == 1);
-
-                    cout << "ISPEJIMAS: S2 leta dideliems duomenims!" << endl;
-                    StudentuPadalinimas_Vector_S2(studentai, pagalVidurki);
+                studentaiVector.clear();
+                if (skaitytiDuomenisIsFailo_Vector(failoPavadinimas, studentaiVector)) {
+                    cout << "\n ISPEJIMAS: S2 leta >10K irasu!" << endl;
+                    StudentuPadalinimas_Vector_S2(studentaiVector, pagalVidurki);
                 }
                 break;
             }
 
             case 4: {
-                // Testuojame Vector S3
                 cout << "\nIveskite failo pavadinima: ";
-                string failoPavadinimas;
                 cin >> failoPavadinimas;
+                pasirinkimas_balas = ivestiSkaiciu("\nPagal ka?\n1 - Vidurkis\n2 - Mediana\n: ", 1, 2);
+                pagalVidurki = (pasirinkimas_balas == 1);
 
-                studentai.clear();
-                if (skaitytiDuomenisIsFailo_Vector(failoPavadinimas, studentai))
-                {
-                    int pasirinkimas_balas = ivestiSkaiciu("\nPagal ka?\n1 - Vidurkis\n2 - Mediana\n: ", 1, 2);
-                    bool pagalVidurki = (pasirinkimas_balas == 1);
-
-                    StudentuPadalinimas_Vector_S3(studentai, pagalVidurki);
+                studentaiVector.clear();
+                if (skaitytiDuomenisIsFailo_Vector(failoPavadinimas, studentaiVector)) {
+                    cout << "\n Optimali Vector strategija!" << endl;
+                    StudentuPadalinimas_Vector_S3(studentaiVector, pagalVidurki);
                 }
                 break;
             }
 
             case 5: {
-                // Palyginame visas strategijas
                 cout << "\nIveskite failo pavadinima: ";
-                string failoPavadinimas;
                 cin >> failoPavadinimas;
-
-                int pasirinkimas_balas = ivestiSkaiciu("\nPagal ka?\n1 - Vidurkis\n2 - Mediana\n: ", 1, 2);
-                bool pagalVidurki = (pasirinkimas_balas == 1);
+                pasirinkimas_balas = ivestiSkaiciu("\nPagal ka?\n1 - Vidurkis\n2 - Mediana\n: ", 1, 2);
+                pagalVidurki = (pasirinkimas_balas == 1);
 
                 cout << "\n========================================" << endl;
                 cout << "  VECTOR STRATEGIJU PALYGINIMAS" << endl;
                 cout << "========================================\n" << endl;
 
-                // S1
-                studentai.clear();
-                if (skaitytiDuomenisIsFailo_Vector(failoPavadinimas, studentai)) {
-                    StudentuPadalinimas_Vector_S1(studentai, pagalVidurki);
+                studentaiVector.clear();
+                if (skaitytiDuomenisIsFailo_Vector(failoPavadinimas, studentaiVector)) {
+                    StudentuPadalinimas_Vector_S1(studentaiVector, pagalVidurki);
                 }
 
-                // S2
-                studentai.clear();
-                if (skaitytiDuomenisIsFailo_Vector(failoPavadinimas, studentai)) {
-                    StudentuPadalinimas_Vector_S2(studentai, pagalVidurki);
+                studentaiVector.clear();
+                if (skaitytiDuomenisIsFailo_Vector(failoPavadinimas, studentaiVector)) {
+                    StudentuPadalinimas_Vector_S2(studentaiVector, pagalVidurki);
                 }
 
-                // S3
-                studentai.clear();
-                if (skaitytiDuomenisIsFailo_Vector(failoPavadinimas, studentai)) {
-                    StudentuPadalinimas_Vector_S3(studentai, pagalVidurki);
+                studentaiVector.clear();
+                if (skaitytiDuomenisIsFailo_Vector(failoPavadinimas, studentaiVector)) {
+                    StudentuPadalinimas_Vector_S3(studentaiVector, pagalVidurki);
                 }
-
-                cout << "\n========================================" << endl;
-                cout << "  PALYGINIMAS BAIGTAS" << endl;
-                cout << "========================================" << endl;
                 break;
             }
 
+            // ============ LIST STRATEGIJOS ============
             case 6: {
+                cout << "\nIveskite failo pavadinima: ";
+                cin >> failoPavadinimas;
+                pasirinkimas_balas = ivestiSkaiciu("\nPagal ka?\n1 - Vidurkis\n2 - Mediana\n: ", 1, 2);
+                pagalVidurki = (pasirinkimas_balas == 1);
+
+                studentaiList.clear();
+                if (skaitytiDuomenisIsFailo_List(failoPavadinimas, studentaiList)) {
+                    StudentuPadalinimas_List_S1(studentaiList, pagalVidurki);
+                }
+                break;
+            }
+
+            case 7: {
                 cout << "\n======================================" << endl;
                 cout << "  Dekojame, kad naudojotes programa!" << endl;
                 cout << "======================================" << endl;
