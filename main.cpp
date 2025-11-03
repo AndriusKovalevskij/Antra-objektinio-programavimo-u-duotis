@@ -32,11 +32,12 @@ int main()
         cout << "6 - List Strategija 1" << endl;
         cout << "7 - List Strategija 2" << endl;
         cout << "8 - List Strategija 3" << endl;
+        cout << "9 - Palyginti visas List strategijas" << endl;
         cout << "----------------------------------" << endl;
-        cout << "9 - Baigti programa" << endl;
+        cout << "10 - Baigti programa" << endl;
         cout << "==================================" << endl;
 
-        int pasirinkimas = ivestiSkaiciu("Pasirinkite (1-8): ", 1, 8);
+        int pasirinkimas = ivestiSkaiciu("Pasirinkite (1-10): ", 1, 10);
 
         string failoPavadinimas;
         bool pagalVidurki;
@@ -164,6 +165,33 @@ int main()
             }
 
             case 9: {
+                cout << "\nIveskite failo pavadinima: ";
+                cin >> failoPavadinimas;
+                pasirinkimas_balas = ivestiSkaiciu("\nPagal ka?\n1 - Vidurkis\n2 - Mediana\n: ", 1, 2);
+                pagalVidurki = (pasirinkimas_balas == 1);
+
+                cout << "\n========================================" << endl;
+                cout << "  LIST STRATEGIJU PALYGINIMAS" << endl;
+                cout << "========================================\n" << endl;
+
+                studentaiList.clear();
+                if (skaitytiDuomenisIsFailo_List(failoPavadinimas, studentaiList)) {
+                    StudentuPadalinimas_List_S1(studentaiList, pagalVidurki);
+                }
+
+                studentaiList.clear();
+                if (skaitytiDuomenisIsFailo_List(failoPavadinimas, studentaiList)) {
+                    StudentuPadalinimas_List_S2(studentaiList, pagalVidurki);
+                }
+
+                studentaiList.clear();
+                if (skaitytiDuomenisIsFailo_List(failoPavadinimas, studentaiList)) {
+                    StudentuPadalinimas_List_S3(studentaiList, pagalVidurki);
+                }
+                break;
+            }
+
+            case 10: {
                 cout << "\n======================================" << endl;
                 cout << "  Dekojame, kad naudojotes programa!" << endl;
                 cout << "======================================" << endl;
