@@ -733,3 +733,104 @@ void StudentuPadalinimas_List_S2(list<Studentas>& studentai, bool pagalVidurki)
     cout << "Vargsiuku: " << vargsiukai.size() << " | Saunuoliu: " << studentai.size() << endl;
     cout << "------------------------------------\n" << endl;
 }
+
+// LIST - STRATEGIJA 3: Splice
+
+void StudentuPadalinimas_List_S3(list<Studentas>& studentai, bool pagalVidurki)
+{
+    if (studentai.empty()) {
+        cout << "Nera studentu duomenu padalijimui!" << endl;
+        return;
+    }
+
+    cout << "\n=== LIST - STRATEGIJA 3 (Splice) ===" << endl;
+    auto start_total = high_resolution_clock::now();
+
+    list<Studentas> vargsiukai;
+
+    auto start_split = high_resolution_clock::now();
+
+    // Naudojamas list::splice - perkelia elementus be kopijavimo
+    for (auto it = studentai.begin(); it != studentai.end(); ) {
+        double galutinisBalas = pagalVidurki ? it->galutinis_vidurkis : it->galutine_mediana;
+
+        if (galutinisBalas < 5.0) {
+            vargsiukai.splice(vargsiukai.end(), studentai, it++);
+        } else {
+            ++it;
+        }
+    }
+
+    auto end_split = high_resolution_clock::now();
+    duration<double> diff_split = end_split - start_split;
+
+    // Rusiavimas
+    auto start_sort = high_resolution_clock::now();
+
+    if (pagalVidurki) {
+        vargsiukai.sort([](const Studentas& a, const Studentas& b) {
+            return a.galutinis_vidurkis < b.galutinis_vidurkis;
+        });
+        studentai.sort([](const Studentas& a, const Studentas& b) {
+            return a.galutinis_vidurkis < b.galutinis_vidurkis;
+        });
+    } else {
+        vargsiukai.sort([](const Studentas& a, const Studentas& b) {
+            return a.galutine_mediana < b.galutine_mediana;
+        });
+        studentai.sort([](const Studentas& a, const Studentas& b) {
+            return a.galutine_mediana < b.galutine_mediana;
+        });
+    }
+
+    auto end_sort = high_resolution_clock::now();
+    duration<double> diff_sort = end_sort - start_sort;
+
+    string tipas = pagalVidurki ? "vidurkis" : "mediana";
+
+    // Isvedimas
+    auto start_output = high_resolution_clock::now();
+
+    string vargsiukuFailas = "vargsiuku_" + tipas + "_list_s3.txt";
+    ofstream fout1(vargsiukuFailas);
+    if (fout1.is_open()) {
+        fout1 << left << setw(20) << "Vardas" << setw(20) << "Pavarde"
+              << setw(25) << ("Galutinis (" + tipas + ")") << endl;
+        fout1 << string(65, '-') << endl;
+        for (const auto& s : vargsiukai) {
+            double balas = pagalVidurki ? s.galutinis_vidurkis : s.galutine_mediana;
+            fout1 << left << setw(20) << s.vardas << setw(20) << s.pavarde
+                  << fixed << setprecision(2) << balas << endl;
+        }
+        fout1.close();
+    }
+
+    string saunuoliuFailas = "saunuoliu_" + tipas + "_list_s3.txt";
+    ofstream fout2(saunuoliuFailas);
+    if (fout2.is_open()) {
+        fout2 << left << setw(20) << "Vardas" << setw(20) << "Pavarde"
+              << setw(25) << ("Galutinis (" + tipas + ")") << endl;
+        fout2 << string(65, '-') << endl;
+        for (const auto& s : studentai) {
+            double balas = pagalVidurki ? s.galutinis_vidurkis : s.galutine_mediana;
+            fout2 << left << setw(20) << s.vardas << setw(20) << s.pavarde
+                  << fixed << setprecision(2) << balas << endl;
+        }
+        fout2.close();
+    }
+
+    auto end_output = high_resolution_clock::now();
+    duration<double> diff_output = end_output - start_output;
+
+    auto end_total = high_resolution_clock::now();
+    duration<double> diff_total = end_total - start_total;
+
+    cout << "\n--- LAIKO MATAVIMAS (STRATEGIJA 3) ---" << endl;
+    cout << "Padalij. (splice) laikas:    " << fixed << setprecision(6) << diff_split.count() << " s" << endl;
+    cout << "Rusiavimo laikas:            " << fixed << setprecision(6) << diff_sort.count() << " s" << endl;
+    cout << "Isvedimo laikas:             " << fixed << setprecision(6) << diff_output.count() << " s" << endl;
+    cout << "BENDRAS laikas:              " << fixed << setprecision(6) << diff_total.count() << " s" << endl;
+    cout << "------------------------------------" << endl;
+    cout << "Vargsiuku: " << vargsiukai.size() << " | Saunuoliu: " << studentai.size() << endl;
+    cout << "------------------------------------\n" << endl;
+}

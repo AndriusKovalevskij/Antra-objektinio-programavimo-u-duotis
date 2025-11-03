@@ -31,8 +31,9 @@ int main()
         cout << "\nLIST STRATEGIJOS:" << endl;
         cout << "6 - List Strategija 1" << endl;
         cout << "7 - List Strategija 2" << endl;
+        cout << "8 - List Strategija 3" << endl;
         cout << "----------------------------------" << endl;
-        cout << "8 - Baigti programa" << endl;
+        cout << "9 - Baigti programa" << endl;
         cout << "==================================" << endl;
 
         int pasirinkimas = ivestiSkaiciu("Pasirinkite (1-8): ", 1, 8);
@@ -149,6 +150,20 @@ int main()
             }
 
             case 8: {
+                cout << "\nIveskite failo pavadinima: ";
+                cin >> failoPavadinimas;
+                pasirinkimas_balas = ivestiSkaiciu("\nPagal ka?\n1 - Vidurkis\n2 - Mediana\n: ", 1, 2);
+                pagalVidurki = (pasirinkimas_balas == 1);
+
+                studentaiList.clear();
+                if (skaitytiDuomenisIsFailo_List(failoPavadinimas, studentaiList)) {
+                    cout << "\n OPTIMALI List strategija!" << endl;
+                    StudentuPadalinimas_List_S3(studentaiList, pagalVidurki);
+                }
+                break;
+            }
+
+            case 9: {
                 cout << "\n======================================" << endl;
                 cout << "  Dekojame, kad naudojotes programa!" << endl;
                 cout << "======================================" << endl;

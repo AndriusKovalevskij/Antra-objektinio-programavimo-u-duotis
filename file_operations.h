@@ -26,4 +26,7 @@ void StudentuPadalinimas_List_S1(const std::list<Studentas>& studentai, bool pag
 // Strategija 2: Trynimas
 void StudentuPadalinimas_List_S2(std::list<Studentas>& studentai, bool pagalVidurki = true);
 
+// Strategija 3: Splice
+void StudentuPadalinimas_List_S3(std::list<Studentas>& studentai, bool pagalVidurki = true);
+
 #endif // FILE_OPERATIONS_H_INCLUDED
