@@ -13,4 +13,7 @@ void GeneruotiStudentuFaila(const std::string& failoPavadinimas, int studentuKie
 // Strategija 1: Kopijavimas i du naujus konteinerius
 void StudentuPadalinimas_Vector_S1(const std::vector<Studentas>& studentai, bool pagalVidurki = true);
 
+// Strategija 2: Vienas konteineris + trynimas
+void StudentuPadalinimas_Vector_S2(std::vector<Studentas>& studentai, bool pagalVidurki = true);
+
 #endif // FILE_OPERATIONS_H_INCLUDED

@@ -10,7 +10,7 @@ int main()
 {
     cout << "======================================" << endl;
     cout << "  Studentu pazymiu sistema v1.0" << endl;
-    cout << "  Strategija 1 - Vector" << endl;
+    cout << "  Strategijos 1-2 - Vector" << endl;
     cout << "======================================" << endl;
 
     vector<Studentas> studentai;
@@ -21,11 +21,12 @@ int main()
         cout << "    MENIU" << endl;
         cout << "==================================" << endl;
         cout << "1 - Sugeneruoti testini faila" << endl;
-        cout << "2 - Nuskaityti is failo ir testuoti S1" << endl;
-        cout << "3 - Baigti programa" << endl;
+        cout << "2 - Testuoti Vector Strategija 1" << endl;
+        cout << "3 - Testuoti Vector Strategija 2" << endl;
+        cout << "4 - Baigti programa" << endl;
         cout << "==================================" << endl;
 
-        int pasirinkimas = ivestiSkaiciu("Pasirinkite (1-3): ", 1, 3);
+        int pasirinkimas = ivestiSkaiciu("Pasirinkite (1-4): ", 1, 4);
 
         switch (pasirinkimas)
         {
@@ -49,7 +50,6 @@ int main()
                     int pasirinkimas_balas = ivestiSkaiciu("\nPagal ka padalinti?\n1 - Pagal vidurki\n2 - Pagal mediana\nPasirinkimas: ", 1, 2);
                     bool pagalVidurki = (pasirinkimas_balas == 1);
 
-                    cout << "\n--- TESTUOJAMA STRATEGIJA 1 ---" << endl;
                     StudentuPadalinimas_Vector_S1(studentai, pagalVidurki);
                 } else {
                     cout << "Nepavyko nuskaityti duomenu is failo." << endl;
@@ -58,6 +58,24 @@ int main()
             }
 
             case 3: {
+                // Testuojame Vector S2
+                cout << "\nIveskite failo pavadinima (pvz., studentai_1000.txt): ";
+                string failoPavadinimas;
+                cin >> failoPavadinimas;
+
+                studentai.clear();
+                if (skaitytiDuomenisIsFailo_Vector(failoPavadinimas, studentai))
+                {
+                    int pasirinkimas_balas = ivestiSkaiciu("\nPagal ka padalinti?\n1 - Pagal vidurki\n2 - Pagal mediana\nPasirinkimas: ", 1, 2);
+                    bool pagalVidurki = (pasirinkimas_balas == 1);
+                    StudentuPadalinimas_Vector_S2(studentai, pagalVidurki);
+                } else {
+                    cout << "Nepavyko nuskaityti duomenu is failo." << endl;
+                }
+                break;
+            }
+
+            case 4: {
                 cout << "\n======================================" << endl;
                 cout << "  Dekojame, kad naudojotes programa!" << endl;
                 cout << "======================================" << endl;
