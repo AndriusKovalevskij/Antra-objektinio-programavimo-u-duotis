@@ -30,10 +30,12 @@ int main()
         cout << "5 - Palyginti visas Vector strategijas" << endl;
         cout << "\nLIST STRATEGIJOS:" << endl;
         cout << "6 - List Strategija 1" << endl;
-        cout << "7 - Baigti programa" << endl;
+        cout << "7 - List Strategija 2" << endl;
+        cout << "----------------------------------" << endl;
+        cout << "8 - Baigti programa" << endl;
         cout << "==================================" << endl;
 
-        int pasirinkimas = ivestiSkaiciu("Pasirinkite (1-7): ", 1, 6);
+        int pasirinkimas = ivestiSkaiciu("Pasirinkite (1-8): ", 1, 8);
 
         string failoPavadinimas;
         bool pagalVidurki;
@@ -133,6 +135,20 @@ int main()
             }
 
             case 7: {
+                cout << "\nIveskite failo pavadinima: ";
+                cin >> failoPavadinimas;
+                pasirinkimas_balas = ivestiSkaiciu("\nPagal ka?\n1 - Vidurkis\n2 - Mediana\n: ", 1, 2);
+                pagalVidurki = (pasirinkimas_balas == 1);
+
+                studentaiList.clear();
+                if (skaitytiDuomenisIsFailo_List(failoPavadinimas, studentaiList)) {
+                    cout << "\nList'ui efektyvu - O(1) trynimas!" << endl;
+                    StudentuPadalinimas_List_S2(studentaiList, pagalVidurki);
+                }
+                break;
+            }
+
+            case 8: {
                 cout << "\n======================================" << endl;
                 cout << "  Dekojame, kad naudojotes programa!" << endl;
                 cout << "======================================" << endl;
