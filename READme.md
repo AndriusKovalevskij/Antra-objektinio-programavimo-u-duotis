@@ -118,3 +118,12 @@ Milžiniškas duomenų kiekis (10000000 įrašų)
 <img width="689" height="846" alt="image" src="https://github.com/user-attachments/assets/b92a9198-a16a-4838-8825-ee59423925c0" />
 
 Pastaba: Dėl labai didelio duomenų kiekio ir atminties perkėlimų, S2 netikėtai gerai veikia. Splice greičiausias padalinimas (~7x greičiau).
+
+Bendras visų strategijų palyginimas (sekundėmis)
+| Įrašai     | V-S1    | V-S2    | V-S3    | L-S1    | L-S2    | L-S3    | Geriausia     |
+|------------|---------|---------|---------|---------|---------|---------|---------------|
+| 1K         | 0.006   | 0.013   | 0.006   | 0.006   | 0.007   | 0.006   | V-S3 / L-S3 ≈ |
+| 10K        | 0.142   | 1.749   | 0.128   | 0.131   | 0.120   | 0.118   | **L-S3**      |
+| 100K       | 0.784   | 137.5   | 0.787   | 0.773   | 0.773   | 0.769   | **L-S3**      |
+| 1M         | 3.797   | -       | 4.136   | 4.032   | 4.027   | 3.815   | **L-S3**      |
+| 10M        | 55.85   | -       | 58.08   | 150.4   | 142.2   | 145.8   | **V-S3**      |
