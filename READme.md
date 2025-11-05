@@ -59,5 +59,62 @@ Milžiniškas duomenų kiekis (10000000 įrašų)
 
 Išvada: Abu S1 ir S3 geri, bet S3 turi greitesnį rūšiavimą (stable_partition optimizacijos).
 
+LIST:
+Mažas duomenų kiekis (1000 įrašų)
+| Strategija           | Padalinimas | Rūšiavimas | Išvedimas  | Bendras laikas  | Skirtumas |
+|----------------------|-------------|------------|------------|-----------------|------------|
+| S1 (Kopijavimas)     | 0.000329 s  | 0.000209 s | 0.005135 s | 0.005675 s      | +0.1%      |
+| S2 (Trynimas)        | 0.000170 s  | 0.000157 s | 0.006203 s | 0.006530 s      | +15.2%     |
+| S3 (Splice)          | 0.000060 s  | 0.000175 s | 0.005434 s | 0.005671 s      | bazė       |
 
+<img width="435" height="354" alt="image" src="https://github.com/user-attachments/assets/3f7edbe9-99e3-44b8-8986-612f4733e4b7" />
+<img width="616" height="315" alt="image" src="https://github.com/user-attachments/assets/217655c6-c958-461f-8982-6a53b5f5854e" />
 
+Išvada: Minimalūs skirtumai, splice šiek tiek efektyvesnė.
+
+Vidutinis duomenų kiekis (10000 įrašų)
+| Strategija           | Padalinimas | Rūšiavimas | Išvedimas  | Bendras laikas | Skirtumas |
+|----------------------|-------------|------------|------------|----------------|-----------|
+| S1 (Kopijavimas)     | 0.003650 s  | 0.003856 s | 0.123821 s | 0.131330 s     | +11.4%    |
+| S2 (Trynimas)        | 0.002018 s  | 0.003959 s | 0.113596 s | 0.119578 s     | +1.5%     |
+| S3 (Splice)          | 0.000582 s  | 0.003533 s | 0.113648 s | 0.117765 s     | bazė      |
+
+<img width="494" height="217" alt="image" src="https://github.com/user-attachments/assets/8c29ef2b-3c1a-4d88-8b4f-80c10c5c0ac9" />
+<img width="318" height="303" alt="image" src="https://github.com/user-attachments/assets/a16b9b76-e0ba-45fc-9fb8-8f3b3e5fe255" />
+
+Išvada: Splice ~10% greitesnė už kopijavimą.
+
+Didelis duomenų kiekis (100000 įrašų)
+| Strategija           | Padalinimas | Rūšiavimas | Išvedimas  | Bendras laikas | Skirtumas |
+|----------------------|-------------|------------|------------|----------------|-----------|
+| S1 (Kopijavimas)     | 0.033863 s  | 0.061847 s | 0.677043 s | 0.772763 s     | +0.6%     |
+| S2 (Trynimas)        | 0.018526 s  | 0.079227 s | 0.675436 s | 0.773199 s     | +0.6%     |
+| S3 (Splice)          | 0.007197 s  | 0.071687 s | 0.690178 s | 0.769071 s     | bazė      |
+
+<img width="405" height="616" alt="image" src="https://github.com/user-attachments/assets/943e8bb3-451b-406a-9d7a-8bd00743f183" />
+
+Išvada: Splice turi greičiausią padalijimą (~4-5x greičiau), bendras skirtumas ~0.5%.
+
+ Labai didelis duomenų kiekis (1000000 įrašų)
+| Strategija           | Padalinimas | Rūšiavimas | Išvedimas  | Bendras laikas  | Skirtumas |
+|----------------------|-------------|------------|------------|-----------------|-----------|
+| S1 (Kopijavimas)     | 0.179364 s  | 0.690237 s | 3.162443 s | 4.032047 s      | +5.6%     |
+| S2 (Trynimas)        | 0.091222 s  | 0.704253 s | 3.231950 s | 4.027429 s      | +5.5%     |
+| S3 (Splice)          | 0.037101 s  | 0.693594 s | 3.084502 s | 3.815202 s      | bazė      |
+
+<img width="380" height="166" alt="image" src="https://github.com/user-attachments/assets/73fc8bb7-f9a3-4504-949f-15e861c5dcaa" />
+<img width="777" height="418" alt="image" src="https://github.com/user-attachments/assets/98d3e699-d49c-45ba-94ff-f0a9b78b0589" />
+<img width="388" height="214" alt="image" src="https://github.com/user-attachments/assets/510372a2-210a-46db-9219-32bda6ba8c80" />
+
+Išvada: Splice ~5% greitesnė, ypač dėl efektyvaus padalijimo.
+
+Milžiniškas duomenų kiekis (10000000 įrašų)
+| Strategija           | Padalinimas | Rūšiavimas  | Išvedimas    | Bendras laikas  | Skirtumas |
+|----------------------|-------------|-------------|--------------|-----------------|-----------|
+| S1 (Kopijavimas)     | 4.564978 s  | 17.896376 s | 127.976135 s | 150.437496 s    | +3.2%     |
+| S2 (Trynimas)        | 2.076061 s  | 18.048989 s | 122.073833 s | 142.198890 s    | -2.5%     |
+| S3 (Splice)          | 0.656178 s  | 17.885075 s | 127.269474 s | 145.810736 s    | bazė      |
+
+<img width="689" height="846" alt="image" src="https://github.com/user-attachments/assets/b92a9198-a16a-4838-8825-ee59423925c0" />
+
+Pastaba: Dėl labai didelio duomenų kiekio ir atminties perkėlimų, S2 netikėtai gerai veikia. Splice greičiausias padalinimas (~7x greičiau).
