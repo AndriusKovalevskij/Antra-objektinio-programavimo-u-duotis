@@ -1,7 +1,22 @@
 VECTOR:
 
 <img width="341" height="157" alt="image" src="https://github.com/user-attachments/assets/b8e8d55c-1097-46cc-8751-4d54ad43dbca" />
-<img width="712" height="256" alt="image" src="https://github.com/user-attachments/assets/18ed9ebe-36f3-48bd-ad12-52cfa9e7ecf7" />
+<img width="674" height="254" alt="image" src="https://github.com/user-attachments/assets/194858d5-7ad3-4639-8002-81a15ffceeb9" />
+
+-01 (1.13 MB)
+
+<img width="704" height="259" alt="image" src="https://github.com/user-attachments/assets/c8cff1f4-65d8-4b1d-b6d5-bdd7d5e9e43b" />
+<img width="668" height="248" alt="image" src="https://github.com/user-attachments/assets/3bdf5147-0ee4-46ad-88fc-679b51a02ed6" />
+
+-02 (1.13 MB)
+
+<img width="688" height="252" alt="image" src="https://github.com/user-attachments/assets/36634e79-37f1-4b60-ad5e-eb20d2ed72e0" />
+<img width="681" height="247" alt="image" src="https://github.com/user-attachments/assets/a789a40f-189e-4a9d-9bcc-79ad24223d48" />
+
+-03 (1.13 MB)
+
+<img width="690" height="258" alt="image" src="https://github.com/user-attachments/assets/331dd2ba-f997-4661-b9c7-d60a57d24d86" />
+<img width="700" height="261" alt="image" src="https://github.com/user-attachments/assets/2142a990-18fc-4528-b1d6-a1ac9accd656" />
 
 
 CLASS:
