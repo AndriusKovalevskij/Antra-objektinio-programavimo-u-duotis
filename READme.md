@@ -10,7 +10,7 @@ VECTOR:
 
 -02 (1.13 MB)
 
-<img width="688" height="252" alt="image" src="https://github.com/user-attachments/assets/36634e79-37f1-4b60-ad5e-eb20d2ed72e0" />
+<img width="700" height="249" alt="image" src="https://github.com/user-attachments/assets/25e0ce9e-7df9-4cee-a4f2-db612d8eb5bd" />
 <img width="681" height="247" alt="image" src="https://github.com/user-attachments/assets/a789a40f-189e-4a9d-9bcc-79ad24223d48" />
 
 -03 (1.13 MB)
