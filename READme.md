@@ -25,15 +25,28 @@ CLASS:
 <img width="821" height="343" alt="Screenshot 2025-11-06 110712" src="https://github.com/user-attachments/assets/9d73799f-c3ed-4fab-af8c-9c20e0add5b1" />
 
 -01 (939 kb)
+
 <img width="817" height="356" alt="image" src="https://github.com/user-attachments/assets/1ed59eb6-fbd7-4fa6-a382-338047002962" />
 <img width="825" height="370" alt="image" src="https://github.com/user-attachments/assets/f9433a40-391d-43b2-9b32-e27a2f67b214" />
 
 -02 (939 kb)
+
 <img width="795" height="357" alt="image" src="https://github.com/user-attachments/assets/a59d87f2-ee62-43fe-b4b1-4d83e0ce3b0b" />
 <img width="807" height="353" alt="image" src="https://github.com/user-attachments/assets/56a84b27-cc64-4cad-84d1-14c232e6f50c" />
 
 -03 (939 kb)
+
 <img width="806" height="354" alt="image" src="https://github.com/user-attachments/assets/468d6152-fe91-4d53-945c-ea9c45cd22e5" />
 <img width="805" height="361" alt="image" src="https://github.com/user-attachments/assets/1cfd6e07-c3b0-4aa1-8507-78034e3ac2ce" />
 
 
+| Optimizacija | Įrašų kiekis | Partition | Kopijavimas | Rušiavimas | Išvedimas | BENDRAS |
+|--------------|--------------|-----------|-------------|------------|-----------|---------|
+| -            | 100000       | 0.057 s   | 0.039 s     | 0.290 s    | 1.918 s   | 2.304 s |
+| -01          | 100000       | 0.038 s   | 0.021 s     | 0.130 s    | 0.452 s   | 0.641 s |
+| -O2          | 100000       | 0.037 s   | 0.024 s     | 0.135 s    | 0.479 s   | 0.675 s |
+| -O3          | 100000       | 0.024 s   | 0.021 s     | 0.138 s    | 0.478 s   | 0.662 s |
+| -            | 1000000      | 0.323 s   | 0.181 s     | 1.572 s    | 4.696 s   | 6.771 s |
+| -01          | 1000000      | 0.250 s   | 0.156 s     | 1.663 s    | 4.660 s   | 6.728 s |
+| -O2          | 1000000      | 0.279 s   | 0.222 s     | 1.653 s    | 4.563 s   | 6.718 s |
+| -O3          | 1000000      | 0.272 s   | 0.176 s     | 1.684 s    | 4.570 s   | 6.703 s |
