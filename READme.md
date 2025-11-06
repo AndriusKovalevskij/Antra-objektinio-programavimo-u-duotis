@@ -19,6 +19,18 @@ VECTOR:
 <img width="700" height="261" alt="image" src="https://github.com/user-attachments/assets/2142a990-18fc-4528-b1d6-a1ac9accd656" />
 
 
+| Optimizacija | Įrašų kiekis | Partition | Kopijavimas | Rušiavimas | Išvedimas | BENDRAS |
+|--------------|--------------|-----------|-------------|------------|-----------|---------|
+| -            | 100000       | 0.026 s   | 0.020 s     | 0.109 s    | 0.632 s   | 0.787 s |
+| -01          | 100000       | 0.025 s   | 0.016 s     | 0.109 s    | 0.604 s   | 0.754 s |
+| -O2          | 100000       | 0.022 s   | 0.018 s     | 0.125 s    | 0.780 s   | 0.944 s |
+| -O3          | 100000       | 0.024 s   | 0.017 s     | 0.110 s    | 0.645 s   | 0.794 s |
+| -            | 1000000      | 0.236 s   | 0.170 s     | 1.474 s    | 6.310 s   | 8.191 s |
+| -01          | 1000000      | 0.231 s   | 0.178 s     | 1.454 s    | 5.982 s   | 7.845 s |
+| -O2          | 1000000      | 0.231 s   | 0.178 s     | 1.473 s    | 6.041 s   | 7.924 s |
+| -O3          | 1000000      | 0.235 s   | 0.179 s     | 1.466 s    | 5.973 s   | 7.853 s |
+
+
 CLASS:
 
 <img width="844" height="344" alt="image" src="https://github.com/user-attachments/assets/391cb163-bf0d-411f-9507-38fb2c852929" />
