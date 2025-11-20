@@ -27,14 +27,6 @@ Studentas::Studentas(const Studentas& other)
       galutine_mediana_(other.galutine_mediana_) {
 }
 
-// Move konstruktorius
-Studentas::Studentas(Studentas&& other) noexcept
-    : vardas_(std::move(other.vardas_)), pavarde_(std::move(other.pavarde_)),
-      ndpazymiai_(std::move(other.ndpazymiai_)), egzrezultatas_(other.egzrezultatas_),
-      galutinis_vidurkis_(other.galutinis_vidurkis_),
-      galutine_mediana_(other.galutine_mediana_) {
-}
-
 Studentas::~Studentas() {
 }
 
@@ -45,19 +37,6 @@ Studentas& Studentas::operator=(const Studentas& other) {
         vardas_ = other.vardas_;
         pavarde_ = other.pavarde_;
         ndpazymiai_ = other.ndpazymiai_;
-        egzrezultatas_ = other.egzrezultatas_;
-        galutinis_vidurkis_ = other.galutinis_vidurkis_;
-        galutine_mediana_ = other.galutine_mediana_;
-    }
-    return *this;
-}
-
-// Move assignment
-Studentas& Studentas::operator=(Studentas&& other) noexcept {
-    if (this != &other) {
-        vardas_ = std::move(other.vardas_);
-        pavarde_ = std::move(other.pavarde_);
-        ndpazymiai_ = std::move(other.ndpazymiai_);
         egzrezultatas_ = other.egzrezultatas_;
         galutinis_vidurkis_ = other.galutinis_vidurkis_;
         galutine_mediana_ = other.galutine_mediana_;
