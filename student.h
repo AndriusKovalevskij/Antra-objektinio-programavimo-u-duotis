@@ -22,14 +22,12 @@ public:
     Studentas(std::istream& is);  // Konstruktorius skaitymas is srauto
     Studentas(const std::string& vardas, const std::string& pavarde);  // Konstruktorius su parametrais
     Studentas(const Studentas& other);  // Copy konstruktorius
-    Studentas(Studentas&& other) noexcept;  // Move konstruktorius
 
     // Destruktorius
     ~Studentas();
 
     // Operatoriai
     Studentas& operator=(const Studentas& other);  // Copy assignment
-    Studentas& operator=(Studentas&& other) noexcept;  // Move assignment
 
     // Get'eriai (inline, const)
     inline std::string vardas() const { return vardas_; }
