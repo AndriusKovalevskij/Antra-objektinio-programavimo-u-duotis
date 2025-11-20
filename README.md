@@ -50,3 +50,34 @@ Po įvedimo automatiškai iškviečiamas skaiciuotiGalutini() metodas galutiniam
   -Validuoja, kad visi pažymiai būtų intervale [1, 10]
   -Kuria Studentas objektą ir prideda į vector<Studentas> konteinerį
   -Matuoja ir atspausdina nuskaitymo laiką naudodama <chrono> biblioteką
+
+
+**DUOMENŲ IŠVESTIS**
+
+Sistema palaiko du duomenų išvesties metodus:
+1. Išvestis į konsolę
+   Funkcija spausdintiStudentus() išveda duomenis į konsolę:
+   
+   Naudoja cout srautą
+   Formatavimui naudoja <iomanip> manipuliatorius:
+   
+   left - lygiuoja tekstą į kairę
+   setw() - nustato lauko plotį
+   fixed - fiksuoto kablelio formatas
+   setprecision(2) - du skaičiai po kablelio
+
+2. Išvestis į failus
+   Vargšiukų failas (vargsiuku_vidurkis.txt arba vargsiuku_mediana.txt):
+      -Saugo studentus, kurių galutinis balas < 5.0
+      -Surūšiuoti pagal pasirinktą kriterijų (vidurkį arba medianą)
+      -Formatas: Vardas, Pavardė, Galutinis balas
+   
+   Saunuolių failas (saunuoliu_vidurkis.txt arba saunuoliu_mediana.txt):
+      -Saugo studentus, kurių galutinis balas ≥ 5.0
+      -Surūšiuoti pagal pasirinktą kriterijų
+      -Tas pats formatas kaip vargšiukų faile
+   
+   Generuojamas testavimo failas
+      Funkcija GeneruotiStudentuFaila():
+         -Sukuria testinį failą su nurodytu studentų skaičiumi
+
