@@ -28,6 +28,11 @@ Studentas::Studentas(const Studentas& other)
 }
 
 Studentas::~Studentas() {
+    vardas_.clear();
+    pavarde_.clear();
+    egzrezultatas_ = 0;
+    galutinis_vidurkis_ = 0;
+    galutine_mediana_ = 0;
 }
 
 
