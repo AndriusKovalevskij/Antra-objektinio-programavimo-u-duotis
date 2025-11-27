@@ -19,4 +19,23 @@ protected:
     // Virtualus destruktorius
     virtual ~Zmogus();
 
+    // Copy assignment operatorius
+    Zmogus& operator=(const Zmogus& other);
+
+    // Get'eriai (inline, const)
+    inline std::string vardas() const { return vardas_; }
+    inline std::string pavarde() const { return pavarde_; }
+
+    // Set'eriai
+    void setVardas(const std::string& vardas) { vardas_ = vardas; }
+    void setPavarde(const std::string& pavarde) { pavarde_ = pavarde; }
+
+    // Virtualus metodai (daro klase abstrakcia)
+    virtual std::istream& skaityti(std::istream& is) = 0;
+    virtual std::ostream& spausdinti(std::ostream& os) const = 0;
+
+    // Virtualus metodas su implementacija
+    virtual void info() const;
+};
+
 #endif // ZMOGUS_H_INCLUDED
