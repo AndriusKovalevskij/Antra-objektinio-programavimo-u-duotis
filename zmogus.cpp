@@ -19,3 +19,17 @@ Zmogus::~Zmogus() {
     vardas_.clear();
     pavarde_.clear();
 }
+
+// Copy assignment operatorius
+Zmogus& Zmogus::operator=(const Zmogus& other) {
+    if (this != &other) {
+        vardas_ = other.vardas_;
+        pavarde_ = other.pavarde_;
+    }
+    return *this;
+}
+
+// Virtualus metodas su implementacija
+void Zmogus::info() const {
+    std::cout << "Zmogus: " << vardas_ << " " << pavarde_ << std::endl;
+}
