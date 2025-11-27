@@ -15,3 +15,4 @@ void GeneruotiStudentuFaila(const std::string& failoPavadinimas, int studentuKie
 void StudentuPadalinimas_Vector(std::vector<Studentas>& studentai, bool pagalVidurki = true);
 
 #endif // FILE_OPERATIONS_H_INCLUDED
+

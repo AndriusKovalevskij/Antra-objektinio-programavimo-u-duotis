@@ -19,3 +19,4 @@ void NDPazymiuGeneravimas(std::vector<int>& ndpazymiai);
 Studentas Stud_ivestis(int studentoNr, bool atsitiktinai = false);
 
 #endif // OPERATIONS_H_INCLUDED
+

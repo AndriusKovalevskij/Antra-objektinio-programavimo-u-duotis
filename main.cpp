@@ -13,7 +13,7 @@ void spausdintiStudentus(const vector<Studentas>& studentai, bool pagalVidurki);
 int main()
 {
     cout << "======================================" << endl;
-    cout << "  Studentu pazymiu sistema v1.1" << endl;
+    cout << "  Studentu pazymiu sistema v1.5" << endl;
     cout << "======================================" << endl;
 
     vector<Studentas> studentai;
