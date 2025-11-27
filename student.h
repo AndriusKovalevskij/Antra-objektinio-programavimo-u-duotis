@@ -1,6 +1,7 @@
 #ifndef STUDENT_H_INCLUDED
 #define STUDENT_H_INCLUDED
 
+#include "zmogus.h"
 #include <iostream>
 #include <string>
 #include <vector>
