@@ -3,44 +3,42 @@
 
 // Default konstruktorius
 Studentas::Studentas()
-    : vardas_(""), pavarde_(""), egzrezultatas_(0),
+    : Zmogus(), egzrezultatas_(0),
       galutinis_vidurkis_(0.0), galutine_mediana_(0.0) {
 }
 
 // Konstruktorius su srauto skaitymu
 Studentas::Studentas(std::istream& is)
-    : egzrezultatas_(0), galutinis_vidurkis_(0.0), galutine_mediana_(0.0) {
-    readStudent(is);
+    : Zmogus(), egzrezultatas_(0), galutinis_vidurkis_(0.0), galutine_mediana_(0.0) {
+    skaityti(is);
 }
 
 // Konstruktorius su parametrais
 Studentas::Studentas(const std::string& vardas, const std::string& pavarde)
-    : vardas_(vardas), pavarde_(pavarde), egzrezultatas_(0),
+    : Zmogus(vardas, pavarde), egzrezultatas_(0),
       galutinis_vidurkis_(0.0), galutine_mediana_(0.0) {
 }
 
 // Copy konstruktorius
 Studentas::Studentas(const Studentas& other)
-    : vardas_(other.vardas_), pavarde_(other.pavarde_),
+    : Zmogus(other),  // Kvieciame bazines klases copy konstruktoriu
       ndpazymiai_(other.ndpazymiai_), egzrezultatas_(other.egzrezultatas_),
       galutinis_vidurkis_(other.galutinis_vidurkis_),
       galutine_mediana_(other.galutine_mediana_) {
 }
 
+// Destruktorius
 Studentas::~Studentas() {
-    vardas_.clear();
-    pavarde_.clear();
+    ndpazymiai_.clear();
     egzrezultatas_ = 0;
-    galutinis_vidurkis_ = 0;
-    galutine_mediana_ = 0;
+    galutinis_vidurkis_ = 0.0;
+    galutine_mediana_ = 0.0;
 }
-
 
 // Copy assignment
 Studentas& Studentas::operator=(const Studentas& other) {
     if (this != &other) {
-        vardas_ = other.vardas_;
-        pavarde_ = other.pavarde_;
+        Zmogus::operator=(other);  // Kvieciame bazines klases assignment
         ndpazymiai_ = other.ndpazymiai_;
         egzrezultatas_ = other.egzrezultatas_;
         galutinis_vidurkis_ = other.galutinis_vidurkis_;
@@ -48,7 +46,6 @@ Studentas& Studentas::operator=(const Studentas& other) {
     }
     return *this;
 }
-
 
 // Galutinio balo skaiciavimas
 double Studentas::galBalas(double (*skaiciavimas)(const std::vector<int>&)) const {
@@ -60,8 +57,8 @@ double Studentas::galBalas(double (*skaiciavimas)(const std::vector<int>&)) cons
     return nd_balas * 0.4 + egzrezultatas_ * 0.6;
 }
 
-// Skaitymas is srauto (readStudent)
-std::istream& Studentas::readStudent(std::istream& is) {
+// Implementacija grynai virtualaus metodo skaityti (override)
+std::istream& Studentas::skaityti(std::istream& is) {
     is >> vardas_ >> pavarde_;
 
     int pazymys;
@@ -85,11 +82,27 @@ std::istream& Studentas::readStudent(std::istream& is) {
     return is;
 }
 
-// Isvedimas i srauta (writeStudent)
-std::ostream& Studentas::writeStudent(std::ostream& os) const {
+// Implementacija virtualaus metodo spausdinti (override)
+std::ostream& Studentas::spausdinti(std::ostream& os) const {
     os << vardas_ << " " << pavarde_ << " (Vid: "
        << galutinis_vidurkis_ << ", Med: " << galutine_mediana_ << ")";
     return os;
+}
+
+// Backward compatibility metodai
+std::istream& Studentas::readStudent(std::istream& is) {
+    return skaityti(is);
+}
+
+std::ostream& Studentas::writeStudent(std::ostream& os) const {
+    return spausdinti(os);
+}
+
+// Override info metodas
+void Studentas::info() const {
+    std::cout << "Studentas: " << vardas_ << " " << pavarde_
+              << " | Vidurkis: " << galutinis_vidurkis_
+              << " | Mediana: " << galutine_mediana_ << std::endl;
 }
 
 // Galutiniu balu skaiciavimas
@@ -108,15 +121,15 @@ void Studentas::skaiciuotiGalutini() {
 
 // Isvedimo operatorius
 std::ostream& operator<<(std::ostream& os, const Studentas& s) {
-    return s.writeStudent(os);
+    return s.spausdinti(os);
 }
 
 // Ivedimo operatorius
 std::istream& operator>>(std::istream& is, Studentas& s) {
-    return s.readStudent(is);
+    return s.skaityti(is);
 }
 
-
+// Palyginimo funkcijos
 bool compare(const Studentas& a, const Studentas& b) {
     return a.vardas() < b.vardas();
 }
