@@ -29,6 +29,21 @@ TEST(ZmogusTest, SeteriaiVeikia) {
     EXPECT_EQ(s.pavarde(), "Petraitis");
 }
 
+TEST(ZmogusTest, CopyKonstruktorius) {
+    Studentas s1("Ona", "Onaite");
+    Studentas s2(s1);
+    EXPECT_EQ(s2.vardas(), "Ona");
+    EXPECT_EQ(s2.pavarde(), "Onaite");
+}
+
+TEST(ZmogusTest, AssignmentOperatorius) {
+    Studentas s1("Petras", "Petraitis");
+    Studentas s2;
+    s2 = s1;
+    EXPECT_EQ(s2.vardas(), "Petras");
+    EXPECT_EQ(s2.pavarde(), "Petraitis");
+}
+
 // ============================================================================
 // TESTAI STUDENTAS KLASEI - KONSTRUKTORIAI
 // ============================================================================
@@ -66,7 +81,17 @@ TEST(StudentasTest, CopyKonstruktorius) {
     EXPECT_DOUBLE_EQ(s2.galutinisVidurkis(), s1.galutinisVidurkis());
 }
 
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+TEST(StudentasTest, AssignmentOperatorius) {
+    Studentas s1("Jonas", "Jonaitis");
+    s1.setEgzRezultatas(9);
+    s1.addNdPazymys(8);
+    s1.skaiciuotiGalutini();
+
+    Studentas s2;
+    s2 = s1;
+
+    EXPECT_EQ(s2.vardas(), "Jonas");
+    EXPECT_EQ(s2.pavarde(), "Jonaitis");
+    EXPECT_EQ(s2.egzRezultatas(), 9);
+    EXPECT_EQ(s2.ndPazymiai().size(), 1);
 }
