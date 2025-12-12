@@ -20,3 +20,17 @@ V2.0 release
   -Sukurta Doxygen dokumentacija (HTML katalogo formatu) ir įkelta į projekto repozitoriją.
   -Realizuoti Unit testai.
   -Aprašyta programos naudojimo instrukcija.
+
+
+
+Programos naudojimo instrukcija
+  1. Programa paleidžiama IDE aplinkoje;
+  2. Paleidus programą, pasirodo meniu:
+     1) Įvesti studento duomenis rankiniu būdu
+     2) Atsitiktinis studento pažymių generavimas
+     3) Duomenų nuskaitymas iš failo
+     4) Generavimas testinių failų
+     5) Studentų padalijimas į grupes pagal pasirinktą rodiklį
+     6) Programos pabaiga
+  3. Vartotojas pasirenka norimą funkciją;
+  4. Gautas rezultatas saugomas sukurtame .txt faile
