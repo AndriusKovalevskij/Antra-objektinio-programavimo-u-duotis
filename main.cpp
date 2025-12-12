@@ -5,6 +5,7 @@
 #include <vector>
 #include <algorithm>
 #include <iomanip>
+#include <cstdlib>
 
 using namespace std;
 
@@ -13,7 +14,7 @@ void spausdintiStudentus(const vector<Studentas>& studentai, bool pagalVidurki);
 int main()
 {
     cout << "======================================" << endl;
-    cout << "  Studentu pazymiu sistema v1.5" << endl;
+    cout << "  Studentu pazymiu sistema v2.0" << endl;
     cout << "======================================" << endl;
 
     vector<Studentas> studentai;
